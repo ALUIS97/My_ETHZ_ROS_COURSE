@@ -1,0 +1,6 @@
+NOTA 
+
+EL .bag file debe ir en la carpeta Downloads del sistema para que course4.launch funcione
+
+
+LOS DOS PAQUETES VAN EN  src de catkin_ws

@@ -1,0 +1,35 @@
+<launch>
+
+		  <arg name="laser_enabled" default="$(optenv HUSKY_LMS1XX_ENABLED false)"/>
+  		<arg name="realsense_enabled" default="$(optenv HUSKY_REALSENSE_ENABLED false)"/>
+ 		 <arg name="urdf_extras" default="$(optenv HUSKY_URDF_EXTRAS)"/>
+
+
+
+	
+	<node name="ekf_localization" pkg="robot_localization" type="ekf_localization_node">
+		<rosparam file="$(find husky_highlevel_controller)/config/localization.yaml"/>
+	</node>
+
+	<rosparam param="use_sim_time">true</rosparam>
+
+
+	<node name="multiplot" pkg="rqt_multiplot" type="rqt_multiplot"/>
+
+
+
+		<!-- Load robot description -->
+	  <include file="$(find husky_description)/launch/description.launch" >
+	    <arg name="laser_enabled" default="$(arg laser_enabled)"/>
+	    <arg name="realsense_enabled" default="$(arg realsense_enabled)"/>
+	    <arg name="urdf_extras" default="$(arg urdf_extras)"/>
+	  </include>
+
+	
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+	<node name="rviz" pkg="rviz" type="rviz" />
+
+</launch>
+
+
